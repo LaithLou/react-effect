@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Card from "./Card";
+import axios from "axios";
 /**
  *
  * to make ajax req and get a deck
@@ -40,8 +42,9 @@ function Deck() {
   useEffect(function fetchCardWhenMounted() {
     async function fetchCard() {
       let deck = await axios.get("http://deckofcardsapi.com/api/deck/new/");
+      console.log("deck=", deck);
       setDeck({
-        data: deck.cards[0],
+        data: deck.data,
         // isLoading: false
       });
     }
@@ -59,9 +62,11 @@ function Deck() {
   return (
     <form>
       {cards.map((c) => (
-        <Card cards={cards} />
+        <Card card={c} />
       ))}
       <button onClick={drawCard}>draw a card!</button>
     </form>
   );
 }
+
+export default Deck;
